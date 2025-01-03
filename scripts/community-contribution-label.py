@@ -23,7 +23,7 @@ def remove_label(owner, repo, issue_number, token):
     response.raise_for_status()
 
 def main():
-    event_path = os.getenv("GITHUB_EVENT_NAME")
+    event_path = os.getenv("GITHUB_EVENT_PATH")
     with open(event_path, "r") as f:
         event_data = json.load(f)
 
