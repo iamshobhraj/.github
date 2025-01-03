@@ -32,7 +32,15 @@ def main():
     repo = os.getenv("GITHUB_REPOSITORY")
     owner, repo_name = repo.split("/")
     action = event_data["action"]
-    assignee = issue["assignee"]["login"]
+
+    if action == "unassigned":
+        assignee = event_data.get("changes", {}).get("assignee", {}).get("from", {}).get("login")
+    else:
+        assignee = issue.get("assignee", {}).get("login")
+
+    if not assignee:
+        print("No assignee found")
+        return
 
     token = os.getenv("GITHUB_TOKEN")
     user_type = get_user_type(assignee, token)
