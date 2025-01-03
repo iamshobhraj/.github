@@ -30,4 +30,4 @@ jobs:
         run: |
           python .github/scripts/community-contribution-label.py
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
