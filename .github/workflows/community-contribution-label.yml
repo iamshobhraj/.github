@@ -30,6 +30,6 @@ jobs:
 
       - name: Add/Remove Community Contribution Label
         run: |
-          python .github-repo/scripts/community-contribution-label.py
+          python .github/scripts/community-contribution-label.py
         env:
           GITHUB_TOKEN: ${{ inputs.github_token }}
