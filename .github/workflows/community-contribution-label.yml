@@ -1,8 +1,15 @@
 name: Community Contribution Label
 
 on:
-  issues:
-    types: [assigned, unassigned]
+    workflow_call:
+        inputs:
+          issue-action:
+            description: "The type of issue action (e.g., assigned, unassigned)"
+            required: true
+            type: string
+        secrets:
+          GITHUB_TOKEN:
+            required: true
 
 jobs:
   label:
