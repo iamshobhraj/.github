@@ -2,11 +2,10 @@ name: Community Contribution Label
 
 on:
     workflow_call:
-      inputs:
+      secrets:
         GITHUB_TOKEN:
           description: 'GitHub token'
           required: true
-          type: string
 
 jobs:
   label:
