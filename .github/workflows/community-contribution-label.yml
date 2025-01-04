@@ -26,11 +26,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Debug Environment
-        run: |
-            if [ -f "$GITHUB_EVENT_PATH" ]; then echo "Event path exists"; else echo "Event path missing"; fi
-            if [ -n "$token" ]; then echo "Token is set"; else echo "Token is missing"; fi
-
       - name: Add/Remove Community Contribution Label
         run: python .github-repo/scripts/community-contribution-label.py
         env:
