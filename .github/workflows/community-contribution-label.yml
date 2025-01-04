@@ -28,8 +28,8 @@ jobs:
 
       - name: Debug Environment
         run: |
-        echo "Event path exists: $(test -f $GITHUB_EVENT_PATH && echo 'Yes' || echo 'No')"
-        echo "Token is set: $(test -n "$token" && echo 'Yes' || echo 'No')"
+            if [ -f "$GITHUB_EVENT_PATH" ]; then echo "Event path exists"; else echo "Event path missing"; fi
+            if [ -n "$token" ]; then echo "Token is set"; else echo "Token is missing"; fi
 
       - name: Add/Remove Community Contribution Label
         run: python .github-repo/scripts/community-contribution-label.py
