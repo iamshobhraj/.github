@@ -3,7 +3,7 @@ name: Community Contribution Label
 on:
     workflow_call:
       secrets:
-          gh_token: ${{ secrets.github_token }}
+          gh_token: ${{ secrets.git_token }}
 jobs:
   reusable-job:
     runs-on: ubuntu-latest
