@@ -2,8 +2,8 @@ import os
 import requests
 import json
 
-def get_user_type(username, token):
-    url = f"https://api.github.com/users/{username}"
+def get_user_type(owner, repo, username, token):
+    url = f'https://api.github.com/repos/{owner}/{repo}/collaborators/{username}'
     headers = {"Authorization": f"token {token}"}
     response = requests.get(url, headers=headers)
     response.raise_for_status()
@@ -43,11 +43,11 @@ def main():
         return
 
     token = os.getenv("GITHUB_TOKEN")
-    user_type = get_user_type(assignee, token)
+    user_type = get_user_type(owner, repo_name, assignee, token)
 
-    if action == "assigned" and user_type not in ["Member"]:
+    if action == "assigned" and user_type == 404:
         add_label(owner, repo_name, issue_number, token)
-    elif action == "unassigned" and user_type not in ["Member"]:
+    elif action == "unassigned" and user_type == 404:
         remove_label(owner, repo_name, issue_number, token)
 
 if __name__ == "__main__":
