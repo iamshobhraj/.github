@@ -28,4 +28,4 @@ jobs:
       - name: Add/Remove Community Contribution Label
         run: python .github-repo/scripts/community-contribution-label.py
         env:
-          token: ${{ secrets.gh_token }}
+          token: ${{ gh_token }}
