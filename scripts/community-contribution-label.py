@@ -65,7 +65,7 @@ def main():
 
     if action == "assigned" and user_type == "external":
         add_label(owner, repo_name, issue_number, token)
-    elif action == "unassigned" and user_type == "external":
+    elif action == "unassigned":
         remove_label(owner, repo_name, issue_number, token)
 
 if __name__ == "__main__":
