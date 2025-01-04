@@ -38,11 +38,7 @@ def main():
     else:
         assignee = issue.get("assignee", {}).get("login")
 
-    if not assignee:
-        print("No assignee found")
-        return
-
-    token = os.getenv("GITHUB_TOKEN")
+    token = os.getenv("token")
     user_type = get_user_type(owner, repo_name, assignee, token)
 
     if action == "assigned" and user_type == 404:

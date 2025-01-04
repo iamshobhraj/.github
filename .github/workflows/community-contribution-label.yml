@@ -2,11 +2,8 @@ name: Community Contribution Label
 
 on:
     workflow_call:
-      inputs:
-        github_token:
-          description: 'GitHub token'
-          required: true
-          type: string
+      secrets:
+          gh_token: ${{ secrets.github_token }}
 jobs:
   reusable-job:
     runs-on: ubuntu-latest
@@ -31,4 +28,4 @@ jobs:
       - name: Add/Remove Community Contribution Label
         run: python .github-repo/scripts/community-contribution-label.py
         env:
-          GITHUB_TOKEN: ${{ inputs.github_token }}
+          token: ${{ secrets.gh_token }}
