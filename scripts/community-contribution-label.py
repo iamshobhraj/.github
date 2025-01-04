@@ -29,8 +29,16 @@ def add_label(owner, repo, issue_number, token):
 def remove_label(owner, repo, issue_number, token):
     url = f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/labels/community-contribution-in-progress"
     headers = {"Authorization": f"token {token}"}
-    response = requests.delete(url, headers=headers)
-    response.raise_for_status()
+    try:
+        response = requests.delete(url, headers=headers)
+        if response.status_code == 404:
+            print("Label not found")
+            return
+        response.raise_for_status()
+        print("Label removed")
+    except requests.exceptions.RequestException as e:
+        print(f"Error removing label: {e}")
+        raise
 
 def main():
     event_path = os.getenv("GITHUB_EVENT_PATH")
