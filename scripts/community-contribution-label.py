@@ -7,7 +7,7 @@ def get_user_type(owner, repo, username, token):
     headers = {"Authorization": f"token {token}"}
     response = requests.get(url, headers=headers)
     response.raise_for_status()
-    return response.json().get("type")
+    return response.status_code
 
 def add_label(owner, repo, issue_number, token):
     url = f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/labels"
