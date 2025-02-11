@@ -30,4 +30,3 @@ jobs:
         run: python .github-repo/scripts/community-contribution-label.py
         env:
           token: ${{ secrets.token }}
-          GITHUB_EVENT_PATH: ${{ github.event_path }}
