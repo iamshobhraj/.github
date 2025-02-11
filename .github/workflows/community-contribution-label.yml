@@ -16,13 +16,6 @@ jobs:
             repository: iamshobhraj/.github
             path: .github-repo
 
-      - name: Generate App Token
-        id: generate-token
-        uses: tibdex/github-app-token@v2
-        with:
-            app_id: ${{ secrets.LE_BOT_APP_ID }}
-            private_key: ${{ secrets.LE_BOT_PRIVATE_KEY }}
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -33,12 +26,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Debug Environment
-        run: |
-            if [ -f "$GITHUB_EVENT_PATH" ]; then echo "Event path exists"; else echo "Event path missing"; fi
-            if [ -n "$token" ]; then echo "Token is set"; else echo "Token is missing"; fi
-
       - name: Add/Remove Community Contribution Label
         run: python .github-repo/scripts/community-contribution-label.py
         env:
-          token: ${{ steps.generate-token.outputs.token }}
+          token: ${{ secrets.token }}
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
