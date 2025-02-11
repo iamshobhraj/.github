@@ -56,17 +56,16 @@ def main():
     owner, repo_name = repo.split("/")
     action = event_data["action"]
 
-    current_assignees = [assignee["login"] for assignee in issue.get("assignees", [])]
+    if action == "unassigned":
+        assignee = event_data.get("changes", {}).get("assignee", {}).get("from", {}).get("login")
+    else:
+        assignee = issue.get("assignee", {}).get("login")
 
-    has_external_assignee = False
-    for assignee in current_assignees:
-        if get_user_type(owner, repo_name, assignee, token) == "external":
-            has_external_assignee = True
-            break
+    user_type = get_user_type(owner, repo_name, assignee, token)
 
-    if action == "assigned" and has_external_assignee:
+    if action == "assigned" and user_type == "external":
         add_label(owner, repo_name, issue_number, token)
-    elif action == "unassigned" and not has_external_assignee:
+    elif action == "unassigned":
         remove_label(owner, repo_name, issue_number, token)
 
 if __name__ == "__main__":
